@@ -16,6 +16,16 @@ def test_read_sheep():
         "sex": "ewe"
     }
 
+def test_read_all_sheep():
+    response = client.get("/sheep")
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert isinstance(data, list)
+
+
 def test_add_sheep():
 
     sheep_data_name = {
@@ -36,6 +46,28 @@ def test_add_sheep():
     assert response_2.status_code == 200
 
     assert response_2.json() == sheep_data_name
+
+def test_delete_sheep():
+
+    sheep_data_name = {
+        "id": 8,
+        "name": "Test",
+        "breed": "Suffolk",
+        "sex": "ewe"
+    }
+
+    put_response = client.post("/sheep", json=sheep_data_name)
+    assert put_response.status_code == 201
+
+    del_response = client.delete("/sheep/8")
+    assert del_response.status_code == 200
+    assert del_response.json() == sheep_data_name
+
+
+
+
+# def test_update_sheep():
+
 
 
 
