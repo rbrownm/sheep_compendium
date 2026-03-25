@@ -66,7 +66,22 @@ def test_delete_sheep():
 
 
 
-# def test_update_sheep():
+def test_update_sheep():
+
+    sheep_data_name = {
+        "id": 1,
+        "name": "Test",
+        "breed": "Suffolk",
+        "sex": "ewe"
+    }
+
+    response = client.put("/sheep/1", json=sheep_data_name)
+    assert response.status_code == 200
+    assert response.json() == sheep_data_name
+
+    response_2 = client.get("/sheep/1")
+    assert response_2.status_code == 200
+    assert response_2.json() == sheep_data_name
 
 
 
