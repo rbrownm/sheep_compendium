@@ -6,7 +6,6 @@ client = TestClient(app)
 def test_read_sheep():
 
     response = client.get("/sheep/1")
-
     assert response.status_code == 200
 
     assert response.json() == {
@@ -17,12 +16,10 @@ def test_read_sheep():
     }
 
 def test_read_all_sheep():
+
     response = client.get("/sheep")
-
     assert response.status_code == 200
-
     data = response.json()
-
     assert isinstance(data, list)
 
 
@@ -36,15 +33,10 @@ def test_add_sheep():
     }
 
     response = client.post("/sheep", json=sheep_data_name)
-
     assert response.status_code == 201
-
     assert response.json() == sheep_data_name
-
     response_2 = client.get("/sheep/7")
-
     assert response_2.status_code == 200
-
     assert response_2.json() == sheep_data_name
 
 def test_delete_sheep():
@@ -60,6 +52,7 @@ def test_delete_sheep():
     assert put_response.status_code == 201
 
     del_response = client.delete("/sheep/8")
+
     assert del_response.status_code == 200
     assert del_response.json() == sheep_data_name
 
